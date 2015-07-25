@@ -1,0 +1,29 @@
+{
+    "name": "HOGANIZER",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "welcome to hell",
+    "homepage_url": "http://cargocollective.com/kmonson",
+    "default_locale": "en",
+
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*.gawker.com/*",
+                "http://*.jezebel.com/*",
+                "http://*.gizmodo.com/*",
+                "http://*.kotaku.com/*"
+            ],
+            "js": [
+                "src/inject/inject.js"
+            ],
+            "css": [
+                "css/style.css"
+            ]
+        }
+    ],
+
+    "web_accessible_resources": [
+        "images/*.jpg"
+    ]
+}
