@@ -17,7 +17,7 @@ function generateHulkUrl(int) {
 var lazy = document.querySelector('.main-column'),
     observer = new MutationObserver(function(mutation) {
         for (var i in mutation) {
-            if (mutation[i].target.className === 'lazy-loaded' && mutation[i].target.tagName === 'IMG') {
+            if (mutation[i].target.classList.contains('lazy-loaded') && mutation[i].target.tagName === 'IMG') {
                 // Prevent infinite looping by making sure the same image doesn't get revisited
                 mutation[i].target.classList.remove('lazy-loaded');
                 mutation[i].target.classList.add('hogan-loaded');
@@ -45,9 +45,9 @@ chrome.extension.sendMessage({}, function(response) {
             for (var img in elements) {
                 // elements[img].classList.add('hogan-loaded');
                 elements[img].src = generateHulkUrl(getRandomInt(1, 9));
-//                if (elements[img].classList && !(elements[img].classList.contains('.hulk-loaded')) ) {
-//                    elements[img].classList.add('hogan-loaded');
-//                }
+                if (elements[img].classList && !(elements[img].classList.contains('hogan-loaded')) ) {
+                    elements[img].classList.add('hogan-loaded');
+                }
             }
             clearInterval(readyStateCheckInterval);
         }
