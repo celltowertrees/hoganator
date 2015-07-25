@@ -15,8 +15,6 @@ function generateHulkUrl(int) {
 //----------------------- INITIALIZE
 
 var lazy = document.querySelector('.main-column'),
-    elements,
-
     observer = new MutationObserver(function(mutation) {
         for (var i in mutation) {
             if (mutation[i].target.className === 'lazy-loaded' && mutation[i].target.tagName === 'IMG') {
@@ -32,6 +30,11 @@ var lazy = document.querySelector('.main-column'),
 
 //----------------------- STUFF THAT HAPPENS
 
+// get around lazy loading
+observer.observe(lazy, {
+    attributes: true,
+    subtree: true
+});
 
 // hoganize all imgs NOT lazy-loaded on initial pageload
 chrome.extension.sendMessage({}, function(response) {
@@ -42,17 +45,11 @@ chrome.extension.sendMessage({}, function(response) {
             for (var img in elements) {
                 // elements[img].classList.add('hogan-loaded');
                 elements[img].src = generateHulkUrl(getRandomInt(1, 9));
-                if (elements[img].classList && !(elements[img].classList.contains('.hulk-loaded')) ) {
-                    elements[img].classList.add('hogan-loaded');
-                }
+//                if (elements[img].classList && !(elements[img].classList.contains('.hulk-loaded')) ) {
+//                    elements[img].classList.add('hogan-loaded');
+//                }
             }
             clearInterval(readyStateCheckInterval);
         }
 	}, 10);
-});
-
-// get around lazy loading
-observer.observe(lazy, {
-    attributes: true,
-    subtree: true
 });
